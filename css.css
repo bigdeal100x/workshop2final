@@ -215,6 +215,7 @@ height: 100vh;
 
 #video-copy-1, #video-copy-2, #video-copy-3, #video-copy-4, #video-copy-5 {
   position: absolute;
+  object-fit: contain;
   transform: rotateY(180deg);
 }
 
