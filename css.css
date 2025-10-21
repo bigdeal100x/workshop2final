@@ -210,17 +210,11 @@ height: 100vh;
   top: 10px;
   left: 10px;
   z-index: 0;
-  filter: opacity(1);
   transform: rotateY(180deg);
 }
 
 #video-copy-1, #video-copy-2, #video-copy-3, #video-copy-4, #video-copy-5 {
   position: absolute;
-  display: block;
-    object-fit: cover;
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-  filter: opacity(1);
   transform: rotateY(180deg);
 }
 
