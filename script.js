@@ -3,29 +3,46 @@ let detections = [];
 
 let video;
 let canvas;
+let screenWidth, screenHeight;
 
 function setup() {
-  canvas = createCanvas(480, 360);
+    screenWidth = windowWidth;
+  screenHeight = windowHeight;  
+
+  canvas = createCanvas(160*8, 120*7);
   canvas.id("canvas");
-  
-  // Use CSS to center the canvas
-  canvas.style('display', 'block');
-  canvas.style('margin', 'auto');
-  canvas.style('position', 'absolute');
-  canvas.style('top', '50%');
-  canvas.style('left', '50%');
-  canvas.style('transform', 'translate(-50%, -50%)');
+  canvas.position((screenWidth - width)/2, (screenHeight - height)/2);
 
-  video = createCapture(VIDEO);
+  video = createCapture(VIDEO);// Create video
   video.id("video");
-  video.size(width, height);
+  video.size(160*8, 120*7);
+  video.position((screenWidth - width)/2, (screenHeight - height)/2);
+
+// Create two additional video copies
+  videoCopy1 = createCapture(VIDEO);
+  videoCopy1.id("video-copy-1");
+  videoCopy1.size(160*3.5, 120*2.5); // Smaller size
+  videoCopy1.position(400, 770);
   
-  // Position video exactly over the canvas
-  let canvasPosition = canvas.elt.getBoundingClientRect();
-  video.position(canvasPosition.left, canvasPosition.top);
+  videoCopy2 = createCapture(VIDEO);
+  videoCopy2.id("video-copy-2"); 
+  videoCopy2.size(160*2, 120*3);
+  videoCopy2.position(50, 600);
 
+  videoCopy3 = createCapture(VIDEO);
+  videoCopy3.id("video-copy-3"); 
+  videoCopy3.size(160*4, 120*3);
+  videoCopy3.position(1190, 250);
 
+  videoCopy4 = createCapture(VIDEO);
+  videoCopy4.id("video-copy-4"); 
+  videoCopy4.size(160*5, 120*4);
+  videoCopy4.position(-200, -100);
 
+  videoCopy5 = createCapture(VIDEO);
+  videoCopy5.id("video-copy-5"); 
+  videoCopy5.size(160*3.5, 120*2.5);
+  videoCopy5.position(1050, -30);
 
   const faceOptions = {
     withLandmarks: true,
@@ -37,8 +54,6 @@ function setup() {
   //Initialize the model
   faceapi = ml5.faceApi(video, faceOptions, faceReady);
 }
-
-
 
 function faceReady() {
   faceapi.detect(gotFaces);// Start detecting faces: 顔認識開始
@@ -83,6 +98,15 @@ function drawLandmarks(detections){
 function drawExpressions(detections, x, y, textYSpace){
   if(detections.length > 0){//If at least 1 face is detected
     let {neutral, sad} = detections[0].expressions;
+    textFont('Helvetica Neue');
+    textSize(14);
+    noStroke();
+    fill(255, 255, 225);
+
+    text("neutral:       " + nf(neutral*100, 2, 2)+"%", x, y);
+    text("sad:            "+ nf(sad*100, 2, 2)+"%", x, y+textYSpace);
   }else{//If no faces is detected
+    text("neutral: ", x, y);
+    text("sad: ", x, y + textYSpace*3);
   }
 }
