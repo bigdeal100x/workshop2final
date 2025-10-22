@@ -198,6 +198,29 @@ height: 100vh;
   z-index: 1;
 }
 
+#wrong {
+    position: absolute;
+    left: 8%;
+    width: 1400px;
+    height: auto;
+   z-index: 10; 
+}
+
+#smile{
+    position: absolute;
+    top: -50px;
+    left: 8%;
+    width: 1400px;
+    height: auto;
+   z-index: 10; 
+   opacity: 0; /* Ensure initial state */
+}
+
+#wrong, #smile {
+    transition: opacity 0.3s ease;
+}
+
+
 #canvas{
   position: relative;
   top: 10px;
