@@ -5,14 +5,14 @@ let video;
 let canvas;
 
 function setup() {
-  canvas = createCanvas(480, 360*4);
+  canvas = createCanvas(480, 360);
   canvas.id("canvas");
   
   // Use CSS to center the canvas
   canvas.style('display', 'block');
   canvas.style('margin', 'auto');
   canvas.style('position', 'absolute');
-  canvas.style('top', '80%');
+  canvas.style('top', '50%');
   canvas.style('left', '50%');
   canvas.style('transform', 'translate(-50%, -50%)');
 
@@ -24,13 +24,6 @@ function setup() {
   let canvasPosition = canvas.elt.getBoundingClientRect();
   video.position(canvasPosition.left, canvasPosition.top);
 
-  canvas2 = createCanvas(480, 360);
-  canvas2.id("canvas");
-  
-  video2 = createCapture(VIDEO);
-  video2.id("video2");
-  video2.size(width, height);
-  video2.position(canvasPosition.left, canvasPosition.top);
 
 
 
