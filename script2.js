@@ -7,7 +7,7 @@ let screenWidth, screenHeight;
 
 // Variables for tracking neutral expression over time
 let neutralStartTime = null;
-let neutralThreshold = 10; // seconds
+let neutralThreshold = 5; // seconds
 let smileFadeInProgress = false;
 let smileOpacity = 0;
 
@@ -58,7 +58,7 @@ function setup() {
         withLandmarks: true,
         withExpressions: true,
         withDescriptors: true,
-        minConfidence: 0.5
+        minConfidence: 0.75
     };
 
     //Initialize the model
@@ -113,7 +113,7 @@ function handleSmileOpacity() {
     if (detections.length > 0) {
         let { neutral } = detections[0].expressions;
         
-        if (neutral > 0.75) { // 75% threshold
+        if (neutral > 0.5) { // 75% threshold
             // Start or continue tracking time
             if (neutralStartTime === null) {
                 neutralStartTime = millis();
@@ -181,22 +181,22 @@ function drawLandmarks(detections){
 function drawExpressions(detections, x, y, textYSpace){
     if(detections.length > 0){
         let {neutral, sad} = detections[0].expressions;
-        // textFont('Helvetica Neue');
-        // textSize(14);
-        // noStroke();
-        // fill(255, 255, 225);
+        textFont('Helvetica Neue');
+        textSize(14);
+        noStroke();
+        fill(255, 255, 225);
 
-        // text("neutral:       " + nf(neutral*100, 2, 2)+"%", x, y);
-        // text("sad:            "+ nf(sad*100, 2, 2)+"%", x, y+textYSpace);
+        text("neutral:       " + nf(neutral*100, 2, 2)+"%", x, y);
+        text("sad:            "+ nf(sad*100, 2, 2)+"%", x, y+textYSpace);
         
         // Display timer for neutral expression
         if (neutral > 0.75 && neutralStartTime !== null) {
             const currentTime = millis();
             const elapsedTime = (currentTime - neutralStartTime) / 1000;
-            // text("neutral time: " + nf(elapsedTime, 2, 1) + "s", x, y + textYSpace * 2);
+            text("neutral time: " + nf(elapsedTime, 2, 1) + "s", x, y + textYSpace * 2);
         }
     } else {
-        // text("neutral: ", x, y);
-        // text("sad: ", x, y + textYSpace*3);
+        text("neutral: ", x, y);
+        text("sad: ", x, y + textYSpace*3);
     }
 }
